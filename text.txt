@@ -1,0 +1,2 @@
+mongodb connection
+mongodb+srv://AvinashDeveloper:VLcbQ57ND3BCVwrq@jobsdatabase.gbepauf.mongodb.net/?retryWrites=true&w=majority
