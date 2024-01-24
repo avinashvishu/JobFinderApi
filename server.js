@@ -1,19 +1,16 @@
 const express = require("express");
-const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 require("dotenv").config();
 const app = express();
+//Body Parse
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+// Routes
+const UserAuth = require("./Routes/UserRoute.js");
 
 const Port = process.env.PORT || 3000;
-
-//DataBase Connection
-mongoose
-  .connect(process.env.MongoURI)
-  .then(() => {
-    console.log("Succesfully connected to the DataBase");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+//Db Connection
+require("./config/MongoDb.js");
 
 // Health check Api
 app.get("/health", (req, res) => {
@@ -23,6 +20,8 @@ app.get("/health", (req, res) => {
     time: new Date(),
   });
 });
+
+app.use("/api/v1/auth", UserAuth);
 
 app.listen(Port, () => {
   console.log("server in active on port ", Port);
